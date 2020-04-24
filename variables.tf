@@ -14,10 +14,10 @@ variable "task_role" {
   default     = null
 }
 
-variable "myVariable" {
+variable "execution_role_arn" {
   type        = string
   description = "This role is required by tasks to pull container images and publish container logs to Amazon CloudWatch on your behalf."
-  default     = "ecsTaskExecutionRole"
+  default     = null
 }
 
 variable "network_mode" {
@@ -41,11 +41,11 @@ variable "memory" {
 
 variable "requires_compatibilities" {
   description = "A set of launch types required by the task. The valid values are EC2 and FARGATE."
-  default     = "EC2"
-  type        = string
+  default     = ["EC2", "FARGATE"]
+  type        = set(string)
 
   # validation {
-  #   condition     = "EC2" || "FARGATE"
+  #   condition     = ["EC2"] || ["FARGATE"] || ["EC2", "FARGATE"]
   #   error_message = "It is not a valid value"
   # }
 

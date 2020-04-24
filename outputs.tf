@@ -1,13 +1,13 @@
 output "name" {
-  value = "${aws_ecs_task_definition.main.family}"
+  value = aws_ecs_task_definition.main.family
 }
 
 // The created task definition ARN
 output "arn" {
-  value = "${aws_ecs_task_definition.main.arn}"
+  value = aws_ecs_task_definition.main.arn
 }
 
 // The created task definition ARN
 output "revision" {
-  value = "${aws_ecs_task_definition.main.revision}"
+  value = aws_ecs_task_definition.main.revision
 }

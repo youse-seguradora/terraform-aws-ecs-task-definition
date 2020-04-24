@@ -11,7 +11,7 @@ resource "aws_ecs_task_definition" "main" {
 
 
   dynamic "proxy_configuration" {
-    for_each = var.create_proxy_configuration ? [proxy_configuration] : []
+    for_each = var.create_proxy_configuration ? [var.proxy_configuration] : []
 
     content {
       type           = proxy_configuration.value["type"]
