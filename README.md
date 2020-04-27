@@ -5,6 +5,44 @@ This Terraform module creates an ECS task definition on AWS.
 ## Examples
 
 ```hcl
+
+local {
+  app_name = nginx
+}
+
+module "ecs_fargate_task_def" {
+  source = "git@github.com:youse-seguradora/terraform-aws-ecs-task-definition.git"
+
+  name                     = var.app_name
+  container_definitions    = file("task.json")
+  cpu                      = "256"
+  memory                   = "512"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+}
+```
+
+The task.json file
+
+```json
+[{
+  "name": "nginx",
+  "image": "nginx:latest",
+  "cpu": 256,
+  "memoryReservation":  256,
+  "portMappings": [{
+    "containerPort": 80,
+    "protocol": "tcp"
+  }],
+  "essential": true,
+  "environment": [{
+      "name": "ENV",
+      "value": "test"
+    }
+  ],
+  "mountPoints": [],
+  "volumesFrom": []
+}]
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -35,7 +73,7 @@ This Terraform module creates an ECS task definition on AWS.
 | Name | Description |
 |------|-------------|
 | arn | The created task definition ARN |
-| name | n/a |
+| name | The name of task definition |
 | revision | The created task definition ARN |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
